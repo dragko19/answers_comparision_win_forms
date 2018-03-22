@@ -6,17 +6,17 @@ using System.Windows.Forms;
 
 namespace answers_comparision_win_forms
 {
-    static class Program
+    class Program
     {
-        /// <summary>
-        /// Główny punkt wejścia dla aplikacji.
-        /// </summary>
+        public static Comparision obj = new Comparision();
         [STAThread]
-        static void Main()
+        public static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
         }
+
+        
     }
 }
