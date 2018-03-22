@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2005
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "answers_comparision_win_forms", "answers_comparision_win_forms\answers_comparision_win_forms.csproj", "{D5B943F4-F371-4DF4-BF8B-AFBD974AF98C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D5B943F4-F371-4DF4-BF8B-AFBD974AF98C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5B943F4-F371-4DF4-BF8B-AFBD974AF98C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5B943F4-F371-4DF4-BF8B-AFBD974AF98C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5B943F4-F371-4DF4-BF8B-AFBD974AF98C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4F61FAEF-B2D5-48C8-990F-A95ABB8B4C6F}
+	EndGlobalSection
+EndGlobal
