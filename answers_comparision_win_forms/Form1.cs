@@ -25,9 +25,10 @@ namespace answers_comparision_win_forms
             openFileDialog1.RestoreDirectory = true;
 
             openFileDialog1.ShowDialog();
-            string filePath = openFileDialog1.FileName;
 
-            Program.obj.File_reader(filePath, 1);
+            Program.obj.File_reader(openFileDialog1.FileName, 1);
+
+            textBox1.Text = openFileDialog1.FileName;
         }
 
         private void buttonLoadTeachFile_Click(object sender, EventArgs e)
@@ -37,15 +38,29 @@ namespace answers_comparision_win_forms
             openFileDialog1.FilterIndex = 2;
             openFileDialog1.RestoreDirectory = true;
 
-            openFileDialog1.ShowDialog();
-            string filePath = openFileDialog1.FileName;
+            openFileDialog2.ShowDialog();
 
-            Program.obj.File_reader(filePath,2);          
+            Program.obj.File_reader(openFileDialog2.FileName, 2);
+            textBox2.Text = openFileDialog2.FileName;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             Program.obj.Compare();
+        }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.InitialDirectory = "c:\\";
+            saveFileDialog1.Filter = ".txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            saveFileDialog1.FilterIndex = 2;
+            saveFileDialog1.RestoreDirectory = true;
+
+            if(saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                Program.obj.Message.Save(saveFileDialog1.FileName);
+                textBox3.Text = saveFileDialog1.FileName;
+            }
         }
     }
 }

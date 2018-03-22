@@ -10,10 +10,12 @@ namespace answers_comparision_win_forms
     {
         public List<string> _student_answers { get; private set; }
         public List<string> _teacher_answers { get; private set; }
+        public Messenger Message { get; private set; }
         public Comparision()
         {
             _student_answers = new List<string>();
             _teacher_answers = new List<string>();
+            Message = new Messenger();
             File_reader("student.txt",1);
             File_reader("teacher.txt",2);
         }
@@ -34,7 +36,6 @@ namespace answers_comparision_win_forms
         }
         public void Compare()
         {
-            Messenger Message = new Messenger();
             if (_student_answers.Count() != _teacher_answers.Count())
                 Console.WriteLine("Different number of answers, cannot compare!");
             else
@@ -44,7 +45,6 @@ namespace answers_comparision_win_forms
                         Message.Add_message(_student_answers[i], _teacher_answers[i], true);
                     else
                         Message.Add_message(_student_answers[i], _teacher_answers[i], false);
-                Message.Save();
             }
         }
 
@@ -121,12 +121,12 @@ namespace answers_comparision_win_forms
             strWr.Flush();
         }
 
-        public void Save()
+        public void Save(string path)
         {
             memStr.Seek(0, SeekOrigin.Begin);
             try
             {
-                using (FileStream fS = new FileStream("report.txt", FileMode.OpenOrCreate))
+                using (FileStream fS = new FileStream(path, FileMode.OpenOrCreate))
                 {
                     memStr.CopyTo(fS);
                     fS.Flush();
