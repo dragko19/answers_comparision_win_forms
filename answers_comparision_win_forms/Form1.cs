@@ -26,7 +26,7 @@ namespace answers_comparision_win_forms
 
             openFileDialog1.ShowDialog();
 
-            Program.obj.File_reader(openFileDialog1.FileName, 1);
+            Program.Student.File_reader(openFileDialog1.FileName);
 
             textBox1.Text = openFileDialog1.FileName;
         }
@@ -40,13 +40,13 @@ namespace answers_comparision_win_forms
 
             openFileDialog2.ShowDialog();
 
-            Program.obj.File_reader(openFileDialog2.FileName, 2);
+            Program.Teacher.File_reader(openFileDialog2.FileName);
             textBox2.Text = openFileDialog2.FileName;
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void buttonCompare_Click(object sender, EventArgs e)
         {
-            Program.obj.Compare();
+            Program.Output_message.Compare(Program.Student._answers, Program.Teacher._answers);
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
@@ -58,8 +58,7 @@ namespace answers_comparision_win_forms
 
             if(saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                Program.obj.Message.Save(saveFileDialog1.FileName);
-                textBox3.Text = saveFileDialog1.FileName;
+                Program.Output_message.Save_file(saveFileDialog1.FileName);
             }
         }
     }

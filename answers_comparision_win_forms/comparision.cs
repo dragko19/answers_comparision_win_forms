@@ -2,53 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using System.Windows.Forms;
 
 
 namespace answers_comparision_win_forms
 {
     class Comparision
     {
-        public List<string> _student_answers { get; private set; }
-        public List<string> _teacher_answers { get; private set; }
-        public Messenger Message { get; private set; }
+        public List<string> _answers { get; private set; }
         public Comparision()
         {
-            _student_answers = new List<string>();
-            _teacher_answers = new List<string>();
-            Message = new Messenger();
-            File_reader("student.txt",1);
-            File_reader("teacher.txt",2);
+            _answers = new List<string>();
         }
 
-        public void Set_student_answers(params string[] list)
+        public void Set_answers(params string[] list)
         {
             foreach(string elem in list)
             {
-                _student_answers.Add(elem);
-            }
-        }
-        public void Set_teacher_answers(params string[] list)
-        {
-            foreach (string elem in list)
-            {
-                _teacher_answers.Add(elem);
-            }
-        }
-        public void Compare()
-        {
-            if (_student_answers.Count() != _teacher_answers.Count())
-                Console.WriteLine("Different number of answers, cannot compare!");
-            else
-            {
-                for (int i = 0; i < (int)_student_answers.Count(); i++)
-                    if (_student_answers[i] == _teacher_answers[i])
-                        Message.Add_message(_student_answers[i], _teacher_answers[i], true);
-                    else
-                        Message.Add_message(_student_answers[i], _teacher_answers[i], false);
+                _answers.Add(elem);
             }
         }
 
-        public void File_reader(string path, byte param)
+        public void File_reader(string path)
         {
             StreamReader sr;
             string line;
@@ -58,20 +33,17 @@ namespace answers_comparision_win_forms
                 while ((line = sr.ReadLine()) != null)
                 {
                     line = line.ToUpper();
-                    if (param == 1)
-                        _student_answers.Add(line);
-                    if (param == 2)
-                        _teacher_answers.Add(line);
+                    _answers.Add(line);
                 }
                 sr.Close();
             }
             catch(FileNotFoundException)
             {
-                Console.WriteLine("Cannot open File: {0}", path);
+                MessageBox.Show("Cannot open File: {0}", path);
             }        
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine("Error occured during reading file: {0}", path);
+                MessageBox.Show("Error occured during reading file: {0}", path);
             }      
             
         }
@@ -84,23 +56,36 @@ namespace answers_comparision_win_forms
         private int Points = 0;
         private int Questions = 0;
         private MemoryStream memStr;
-
-
         
         public Messenger()
         {
-            FileInfo fi;
             try
             {
-                fi = new FileInfo("report.txt");
-                if (fi.Exists)
-                    fi.Delete();
-
                 memStr = new MemoryStream();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        public void Compare(List<string> tested_answers, List<string> correct_answers)
+        {
+            if (tested_answers.Count() != correct_answers.Count())
+                MessageBox.Show("Different number of answers, cannot compare!");
+            else
+            {
+                if (tested_answers.Count() == 0 || correct_answers.Count() == 0)
+                    MessageBox.Show("One of files is empty, cannot compare!");
+                else
+                {
+                    for (int i = 0; i < tested_answers.Count(); i++)
+                        if (tested_answers[i] == correct_answers[i])
+                            Add_message(tested_answers[i], correct_answers[i], true);
+                        else
+                            Add_message(tested_answers[i], correct_answers[i], false);
+                    MessageBox.Show("Comparing complete!");
+                }
             }
         }
 
@@ -121,7 +106,7 @@ namespace answers_comparision_win_forms
             strWr.Flush();
         }
 
-        public void Save(string path)
+        public void Save_file(string path)
         {
             memStr.Seek(0, SeekOrigin.Begin);
             try
@@ -130,23 +115,13 @@ namespace answers_comparision_win_forms
                 {
                     memStr.CopyTo(fS);
                     fS.Flush();
+                    MessageBox.Show("Process complete!");
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                MessageBox.Show(ex.Message);
             }
-        }
-        
-        
-
+        }   
     } 
 }
-
-
-/*Odpowiedzi ucznia         Poprawna
-A                                     A
-Rezultat :
-Ilosc błedów 0
-Wynik 1/1
-*/
